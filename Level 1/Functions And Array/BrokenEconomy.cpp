@@ -11,22 +11,29 @@ int main()
     int data;
     cin >> data;
 
-    int low = 0;
-    int high = n-1;
-    while (low<=high)
+    int lo = 0;
+    int hi = n-1;
+    int floor = 0;
+    int ceil = 0;
+    while(lo <= hi)
     {
-        int mid = (low + high)/2;
-        if(arr[mid] < data)
+        int mid = (lo + hi)/2;
+        if (data < arr[mid])
         {
-            low = mid + 1;
+            hi = mid - 1;
+            ceil = arr[mid];
         }
-        else if(arr[mid] < data)
+        else if(data > arr[mid])
         {
-            high = mid - 1;
+            floor = arr[mid];
+            lo = mid + 1;
         }
-        else
-        {
-             cout << mid;
-             return 0;
+        else{
+            floor = arr[mid];
+            ceil = arr[mid];
+            break;
         }
+    }
+    cout << ceil << endl;
+    cout << floor << endl;
     }
