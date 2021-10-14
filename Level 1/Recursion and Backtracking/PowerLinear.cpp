@@ -17,5 +17,5 @@ int main()
 {
     int n, x;
     cin >> x >> n;
-    cout << power(x, n);
+    cout <<power(x, n);
 }

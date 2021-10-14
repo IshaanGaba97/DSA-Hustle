@@ -4,6 +4,7 @@ using namespace std;
 
 void printDec(int n)
 {
+    
     if (n == 0)
     {
         return;
