@@ -8,8 +8,7 @@ vector<string> getStairPaths(int n){
     if(n==0)
     {
         vector<string> bres;
-        bres.push_back
-        ("");
+        bres.push_back("");
         return bres;
     }
     else if(n < 0)
@@ -28,7 +27,7 @@ vector<string> getStairPaths(int n){
     }
     for(string path : paths2)
     {
-        paths.push_back("3" + path);
+        paths.push_back("2" + path);
     }
     for(string path : paths3)
     {
