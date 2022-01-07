@@ -10,7 +10,6 @@ void display(vector<int>a) {
 }
 vector<int> solve(vector<int>arr)
 {
-  //write your code here
   int n = arr.size();
   vector<int>nge(n, 0);
   stack<int> st;
