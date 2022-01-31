@@ -1,7 +1,8 @@
 #include<iostream>
+#include<stack>
 #include<string>
 #include<vector>
-#include<stack>
+#include <algorithm>
 using namespace std;
 
 class Node{
@@ -35,6 +36,17 @@ int size(Node* node){
     return s;
 }
 
+//maximum
+int maximum(Node* node){
+    int maxi = INT_MIN;
+    for(Node* child : node->children){
+        int cm = maximum(child);
+        maxi = max(cm, maxi);
+    }
+    maxi = max(node->data, maxi);
+    return maxi;
+}
+
 
 int main(){
     // int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,100,-1,-1,90,-1,-1,40,100,-1,-1,-1};
@@ -64,6 +76,5 @@ int main(){
             st.push(t);
         }
     }
-    // display(root);
-    cout << size(root);
+    cout << maximum(root);
 }
