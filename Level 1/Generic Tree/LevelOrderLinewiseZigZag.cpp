@@ -37,7 +37,6 @@ int size(Node* node){
     return s;
 }
 
-//maximum = root, child 1, child 2, ...
 int maximum(Node* node){
     int maxi = INT_MIN;
     for(Node* child : node->children){
@@ -48,35 +47,29 @@ int maximum(Node* node){
     return maxi;
 }
 
-//height = max height of (child 1, child 2, ...) + 1(root)
 
 int height(Node* node){
-    int ht = -1;               //height = total no. of max edges - to handle base case of 0 edges in last child
+    int ht = -1;               
     
     for(Node* child : node->children){
         int ch = height(child);
         ht = max(ht, ch);
     }
-    ht = ht + 1;              //root node height add 1
+    ht = ht + 1;              
     return ht;
 }
 
 void traversals(Node* node){
-    // area1 - euler left - nodes pre area - while going up in the recursion
     cout << "Node Pre " << node->data << endl;
     for(Node* child : node->children){
-        //edge pre
         cout << "Edge Pre " << node->data << "--"<< child->data<< endl;
         traversals(child);
-        //edge post
         cout << "Edge Post " << node->data << "--"<< child->data << endl;
     }
-    //area2 - euler right - nodes post area - while going down in the recursion
     cout << "Node Post " << node->data << endl;
 }
 
 void levelOrder(Node* node){
-    //rpa - remove print childrens add
     queue<Node*> q;
     q.push(node);
     
@@ -112,11 +105,40 @@ void levelorderlinewise(Node* node){
     }
 }
 
+//zigzag
+void levelorderlinewiseZZ(Node* node){
+    //stack will store the children in same order as parents and when popped out the order is unique
+    stack<Node*> ms;   
+    ms.push(node);
+    stack<Node*> cs;
+    stack<Node*> s;
+    int level = 1;
+    while(ms.size() > 0){
+        node = ms.top();
+        ms.pop();
+        cout << node->data << " ";
+        if(level%2 == 1){
+            for(int i = 0; i < node->children.size(); i++){
+                Node* child = node->children[i];
+                cs.push(child);
+            }
+        } else {
+            for(int i = node->children.size() - 1; i >= 0; i--){
+                Node* child = node->children[i];
+                cs.push(child);
+            }
+        }
+        if(ms.size() == 0){
+            ms = cs;
+            cs = s;
+            level++;
+            cout << endl;
+        }
+    }
+}
 
 
 int main(){
-    // int arr[]={10,20,50,-1,60,-1,-1,30,70,-1,80,110,-1,100,-1,-1,90,-1,-1,40,100,-1,-1,-1};
-    // int n = 24;
     int n;
     cin>>n;
     // int arr[n];
@@ -143,6 +165,5 @@ int main(){
             st.push(t);
         }
     }
-    // levelOrder(root);
-    levelorderlinewise(root);
+    levelorderlinewiseZZ(root);
 }
