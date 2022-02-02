@@ -4,7 +4,6 @@
 #include<string>
 #include<vector>
 #include <algorithm>
-
 using namespace std;
 
 class Node{
@@ -256,7 +255,7 @@ void removeLeaves(Node* node){
 }
 
 
-//linearize
+//linearize - O(n*n)
 void linearize(Node* node){
     for(Node* child : node->children){
         linearize(child);
@@ -270,6 +269,26 @@ void linearize(Node* node){
         slt->children.push_back(lc);
     }
 }
+
+
+//linearize approach 2 - o(n)
+Node* linearize2(Node* node){
+    if(node->children.size() == 0){
+        return node;
+    }
+    
+    Node* lkt = linearize2(node->children[node->children.size() - 1]); //lkt -last ki tail
+    while(node->children.size() > 1){
+        Node* lc = node->children[node->children.size()-1];   //lc-lastchild
+        node->children.pop_back();                          //remove last child
+        Node* sl = node->children[node->children.size()-1];   //sc-secondlastchild
+        Node* slt = linearize2(sl);                           //second last ki tail
+        slt->children.push_back(lc);                           //add lc to slt
+    }
+    
+    return lkt;
+}
+
 
 int main(){
     int n;
@@ -297,6 +316,6 @@ int main(){
             st.push(t);
         }
     }
-    linearize(root);
+    linearize2(root);
     display(root);
 }
