@@ -60,7 +60,7 @@ bool isMirror(Node *n1, Node *n2)
 
 bool issym(Node *node)
 {
-    return isMirror(node, node);
+    return isMirror(node, node);       //a tree is symmetric if its right and left childs are mirror images
 }
 
 int main()
